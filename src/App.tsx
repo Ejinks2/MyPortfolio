@@ -1,4 +1,4 @@
-import './App.css'
+import './styles/App.css';
 
 function App() {
 
@@ -28,35 +28,52 @@ function App() {
                 <div className="w-full h-px bg-[#34373A] mt-1" ></div>
                 
                 <ul>
-                <li>
-                    <h3 className="text-xl text-left pt-3">Simulated Recycling Bin</h3>
-                    <h4 className='mt-2'>
-                    Using the Bash interpreter language, I created a script that when the
-                    user calls the script, creates a .recycle folder in the home directory
-                    (if it does not exist) and when the user gives certain flags, either
-                    moves files into the recycling folder or deletes all files inside the
-                    recycling folder, simulating a recycling bin.
-                    </h4>
-                    <a href="https://github.com/Ejinks2/recycling" target="_blank" rel="noreferrer" className="text-xl">
-                    Simulated Recycling Bin
-                    </a>
-                </li>
-                <li>
-                    <div className="w-full h-px bg-[#34373A] mt-1" ></div>
-                    <div className="w-full h-px bg-[#34373A] mt-1" ></div>
-                </li>
-                <li>
-                    <h3 className="text-xl text-left pt-3">Shell Script</h3>
-                    <h4 className='mt-2'>
-                    Using the C language, I was able to build a shell script that read
-                    user input from the terminal and then executed different commands
-                    depending on user input. I gained skills concerning processes and
-                    forking, tokens, buffers, and common C macros.
-                    </h4>
-                    <a href="https://github.com/Ejinks2/ShellScript" target="_blank" rel="noreferrer" className='text-xl'>
-                    Shell Script
-                    </a>
-                </li>
+                    <li>
+                        <h3 className="text-xl text-left pt-3">NY Crime Data</h3>
+                        <h4 className='mt-2'>
+                            Myself and 3 other team members spent the semester learning about Javascript, HTML, and CSS
+                            in order to build this project. We also learned some key web development skills such as
+                            how to use APIs, how to use the DOM, and how routing works. We also learned some security and 
+                            privacy practices when building a website. This particular website was built to display data about crime in New York City.
+                            We used the NYC Open Data API to get the data and display it in a way that was easy to understand and use.
+                            We also used the Axios library to make the API calls.
+                            We stored cookies in order to keep track of the user's preferences and to prevent them from having to login every time they visit the website.
+                        </h4>
+                        <a href="https://github.com/Ejinks2/CS546_Group36" target="_blank" rel="noreferrer" className="text-xl">NY Crime Data</a>
+                    </li>
+                    <li>
+                        <div className="w-full h-px bg-[#34373A] mt-1" ></div>
+                        <div className="w-full h-px bg-[#34373A] mt-1" ></div>
+                    </li>
+                    <li>
+                        <h3 className="text-xl text-left pt-3">Simulated Recycling Bin</h3>
+                        <h4 className='mt-2'>
+                        Using the Bash interpreter language, I created a script that when the
+                        user calls the script, creates a .recycle folder in the home directory
+                        (if it does not exist) and when the user gives certain flags, either
+                        moves files into the recycling folder or deletes all files inside the
+                        recycling folder, simulating a recycling bin.
+                        </h4>
+                        <a href="https://github.com/Ejinks2/recycling" target="_blank" rel="noreferrer" className="text-xl">
+                        Simulated Recycling Bin
+                        </a>
+                    </li>
+                    <li>
+                        <div className="w-full h-px bg-[#34373A] mt-1" ></div>
+                        <div className="w-full h-px bg-[#34373A] mt-1" ></div>
+                    </li>
+                    <li>
+                        <h3 className="text-xl text-left pt-3">Shell Script</h3>
+                        <h4 className='mt-2'>
+                        Using the C language, I was able to build a shell script that read
+                        user input from the terminal and then executed different commands
+                        depending on user input. I gained skills concerning processes and
+                        forking, tokens, buffers, and common C macros.
+                        </h4>
+                        <a href="https://github.com/Ejinks2/ShellScript" target="_blank" rel="noreferrer" className='text-xl'>
+                        Shell Script
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div className="">
