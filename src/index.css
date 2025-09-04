@@ -52,21 +52,6 @@ body::before {
   z-index: -1;
 }
 
-@keyframes backgroundShift {
-  0%, 100% {
-    transform: translateX(0) translateY(0);
-  }
-  25% {
-    transform: translateX(-10px) translateY(-5px);
-  }
-  50% {
-    transform: translateX(10px) translateY(10px);
-  }
-  75% {
-    transform: translateX(-5px) translateY(5px);
-  }
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -82,15 +67,3 @@ button {
   cursor: pointer;
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
