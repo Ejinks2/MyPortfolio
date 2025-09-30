@@ -24,6 +24,8 @@ jobs:
 
     - name: Build
       run: |
+        git config --global user.email "ethanjinks@gmail.com"
+        git config --global user.name "Ethan Jinks"
         npm install
         grunt
         npm run predeploy && npm run deploy
