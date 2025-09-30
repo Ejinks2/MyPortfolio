@@ -26,5 +26,3 @@ jobs:
       run: |
         npm install
         grunt
-        grunt build
-        grunt portfolio-build
