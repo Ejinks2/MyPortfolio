@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
@@ -24,8 +26,8 @@ jobs:
 
     - name: Build
       run: |
-        git config --global user.email "ethanjinks@gmail.com"
-        git config --global user.name "Ethan Jinks"
+        git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
+        git config --global user.name "${{ secrets.GIT_USER_NAME }}"
         npm install
         grunt
         npm run predeploy && npm run deploy
