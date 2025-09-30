@@ -24,6 +24,7 @@ function App() {
             <div>
                 <div className='w-1/2 h-1/2 mx-auto bg-white rounded-lg flex flex-col items-center justify-center shadow-xl border-5 border-[#34373A]'>
                     <h1 className="text-4xl block">Ethan Jinks</h1>
+                    <h1> I am a Software Engineer </h1>
                     <h2 className='block'>Welcome to my portfolio!</h2>
                 </div>
                 <br />
