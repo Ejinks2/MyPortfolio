@@ -28,4 +28,3 @@ jobs:
         grunt
         grunt build
         grunt portfolio-build
-        grunt deploy
