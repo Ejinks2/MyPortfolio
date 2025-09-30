@@ -25,37 +25,26 @@ module.exports = (grunt) ->
           }
         ]
 
-    # Image optimization
-    imagemin:
-      dynamic:
-        files: [{
-          expand: true
-          cwd: 'src/assets/'
-          src: ['**/*.{png,jpg,jpeg,gif,svg}']
-          dest: 'dist/assets/optimized/'
-        }]
-        options:
-          optimizationLevel: 3
-          progressive: true
-          interlaced: true
-
     # CSS processing
     cssmin:
       options:
         mergeIntoShorthands: false
         roundingPrecision: -1
+        processImport: false
+        rebase: false
       target:
         files:
           'dist/assets/styles.min.css': [
-            'src/styles/*.css'
-            'src/index.css'
+            'src/styles/App.css'
+            'src/styles/carousel.css'
           ]
 
-    # JavaScript/TypeScript linting
+    # JavaScript linting (for any JS files)
     jshint:
       options:
-        jshintrc: '.jshintrc'
         reporter: require('jshint-stylish')
+        esversion: 6
+        node: true
       all: [
         'Gruntfile.js'
         'src/**/*.js'
@@ -64,19 +53,10 @@ module.exports = (grunt) ->
     # ESLint for TypeScript/React
     eslint:
       options:
-        configFile: 'eslint.config.js'
         format: 'stylish'
       target: [
         'src/**/*.{ts,tsx,js,jsx}'
       ]
-
-    # TypeScript compilation check
-    ts:
-      options:
-        fast: 'never'
-        compiler: './node_modules/typescript/bin/tsc'
-      dev:
-        tsconfig: './tsconfig.json'
 
     # File watching for development
     watch:
@@ -86,7 +66,7 @@ module.exports = (grunt) ->
       
       typescript:
         files: ['src/**/*.{ts,tsx}']
-        tasks: ['eslint', 'ts:dev']
+        tasks: ['eslint']
       
       styles:
         files: ['src/**/*.css']
@@ -94,7 +74,7 @@ module.exports = (grunt) ->
       
       assets:
         files: ['src/assets/**/*']
-        tasks: ['copy', 'imagemin']
+        tasks: ['copy']
       
       gruntfile:
         files: ['Gruntfile.coffee']
@@ -120,31 +100,25 @@ module.exports = (grunt) ->
       options:
         logConcurrentOutput: true
 
-    # Git hooks
-    githooks:
-      all:
-        'pre-commit': 'lint-staged'
-
     # File concatenation
     concat:
       options:
-        separator: ';'
+        separator: '\n'
         stripBanners: true
-      dist:
-        src: ['src/Components/*.tsx']
-        dest: '.tmp/components-combined.js'
+      css:
+        src: ['src/styles/App.css', 'src/styles/carousel.css']
+        dest: '.tmp/combined.css'
 
     # Uglify/Minify JavaScript
     uglify:
       options:
         banner: '/*!\n<%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-        mangle: true
-        compress:
-          drop_console: true
+        mangle: false
+        compress: false
       
       dist:
         files:
-          'dist/assets/app.min.js': ['.tmp/components-combined.js']
+          'dist/assets/app.min.js': ['dist/assets/index-*.js']
 
     # HTML processing
     htmlmin:
@@ -159,53 +133,22 @@ module.exports = (grunt) ->
         files:
           'dist/index.html': 'index.html'
 
-    # Performance budget
-    perfbudget:
-      default:
-        options:
-          url: 'http://localhost:3001'
-          budget:
-            requests: 20
-            gzip: 1024000  # 1MB
-            SpeedIndex: 1500
-
-    # Deploy to GitHub Pages
-    'gh-pages':
-      options:
-        base: 'dist'
-        branch: 'gh-pages'
-        repo: 'https://github.com/Ejinks2/MyPortfolio.git'
-      src: ['**/*']
-
-    # Bundle analyzer
-    webpack_bundle_analyzer:
-      default:
-        bundlePath: 'dist/assets/index-*.js'
-
-  # Load grunt plugins
+  # Load grunt plugins (only load what we have installed)
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-copy'
-  grunt.loadNpmTasks 'grunt-contrib-imagemin'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-eslint'
-  grunt.loadNpmTasks 'grunt-ts'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-concurrent'
-  grunt.loadNpmTasks 'grunt-githooks'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-htmlmin'
-  grunt.loadNpmTasks 'grunt-perfbudget'
-  grunt.loadNpmTasks 'grunt-gh-pages'
-  grunt.loadNpmTasks 'grunt-webpack-bundle-analyzer'
 
   # Define tasks
   grunt.registerTask 'default', [
     'clean'
-    'eslint'
-    'ts:dev'
     'copy'
     'cssmin'
     'htmlmin'
@@ -213,13 +156,9 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'clean'
-    'eslint'
-    'ts:dev'
     'copy'
-    'imagemin'
     'cssmin'
     'concat'
-    'uglify'
     'htmlmin'
   ]
 
@@ -237,23 +176,6 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'test', [
     'lint'
-    'ts:dev'
-  ]
-
-  grunt.registerTask 'optimize', [
-    'build'
-    'imagemin'
-    'perfbudget'
-  ]
-
-  grunt.registerTask 'deploy', [
-    'build'
-    'gh-pages'
-  ]
-
-  grunt.registerTask 'analyze', [
-    'build'
-    'webpack_bundle_analyzer'
   ]
 
   # Custom task for portfolio-specific operations
@@ -266,10 +188,9 @@ module.exports = (grunt) ->
     ]
     grunt.log.writeln 'Portfolio setup complete!'
 
-  grunt.registerTask 'portfolio-deploy', 'Deploy portfolio to GitHub Pages', ->
-    grunt.log.writeln 'Deploying Ethan\'s Portfolio...'
+  grunt.registerTask 'portfolio-build', 'Build portfolio for production', ->
+    grunt.log.writeln 'Building Ethan\'s Portfolio for production...'
     grunt.task.run [
-      'optimize'
-      'gh-pages'
+      'build'
     ]
-    grunt.log.writeln 'Portfolio deployed successfully!'
+    grunt.log.writeln 'Portfolio build complete!'
